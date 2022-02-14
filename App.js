@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, ScrollView, StyleSheet, Pressable, Text, View, Button, TouchableOpacity, Image, Modal, Alert } from 'react-native';
-import { white, pink, blue, orange, purple, my_blue, my_green, my_light_green, my_light_blue } from './utils/colors'
+import {
+  white, pink, blue, orange, purple, my_blue, my_green, my_light_green,
+  my_light_blue, gray3, gray7 } from './utils/colors'
 import WheelPicker from 'react-native-wheely';
 
 export default class App extends React.Component {
 
   state = {
     modalVisible: false,
-    category: null,
+    selectedCategory: "Angle",
     index: 3,
     index2: 3,
     selected: 3,
@@ -17,79 +19,139 @@ export default class App extends React.Component {
     input: "0",
     posInput: true,
     output: "0",
+    options: [
+      "Radian (rad)", "Degree (deg)", "Gradian (grad)", "Cycle (cycle)",
+      "Arcsecond (arcsec)", "Arcminute (arcmin)"
+    ],
+    units: ["rad", "deg", "grad", "cycle", "arcsec", "arcmin"]
 
   };
 
   info = [
-    {category: "Angle", icon: null},
-    {category: "Area", icon: null},
-    {category: "Data", icon: null},
-    {category: "Energy", icon: null},
-    {category: "Force", icon: null},
-    {category: "Length", icon: null},
-    {category: "Liquid Volume", icon: null},
-    {category: "Mass", icon: null},
-    {category: "Pressure", icon: null,
+    {
+      category: "Angle", icon: null,
       options: [
-        "Atmosphere (standard)", "Atmosphere (technical)", "Bar (bar)",
-        "Millibar (mbar)", "Inch Mercury (inHg)", "Millimeter Mercury (mmHg)",
-        "Pascal (Pa)", "Megapascal (MPa)", "Pound/sq inch (psi)",
-        "Pound/sq foot (psf)", "Torr (Torr)"
+        "Radian (rad)", "Degree (deg)", "Gradian (grad)", "Cycle (cycle)",
+        "Arcsecond (arcsec)", "Arcminute (arcmin)"
       ],
-      units : [
-        {
-          name: "Atmosphere (standard)",
-          unit: "atm",
-        },
-        {
-          name: "Atmosphere (technical)",
-          unit: "atm",
-        },
-        {
-          name: "Bar",
-          unit: "bar",
-        },
-        {
-          name: "Millibar (mbar)",
-          unit: "atm",
-        },
-        {
-          name: "Inch Mercury (inHg)",
-          unit: "inHg",
-        },
-        {
-          name: "Millimeter Mercury (mmHg)",
-          unit: "mmHg",
-        },
-        {
-          name: "Pascal (Pa)",
-          unit: "Pa",
-        },
-        {
-          name: "Kilopascal (kPa)",
-          unit: "kPa",
-        },
-        {
-          name: "Megapascal (MPa)",
-          unit: "MPa",
-        },
-        {
-          name: "Pound/sq inch (psi)",
-          unit: "psi",
-        },
-        {
-          name: "Pound/sq foot (psf)",
-          unit: "lbsqft",
-        },
-        {
-          name: "Torr (Torr)",
-          unit: "Torr",
-        },
-    ],
+      units: ["rad", "deg", "grad", "cycle", "arcsec", "arcmin"]
     },
-    {category: "Temperature", icon: null},
-    {category: "Time", icon: null},
-    {category: "Volume", icon: null},
+    {
+      category: "Area", icon: null,
+      options: [
+        "Square Kilometer (km²)", "Square Meter (m²)", "Square Decimeter (dm²)",
+        "Square Centimeter (cm²)", "Square Millimeter (mm2)", "Square Inch (in²)",
+        "Square Foot (ft²)", "Square Yard (yd²)", "Square Mile (mi²)",
+        "Square Rod (rod²)", "Square Chain (ch²)", "Square Mil (mil²)",
+        "Acre (ac)", "Hectare (ha)"
+      ],
+      units: [
+        "km2", "m2", "dm2", "cm2", "mm2", "sqin", "sqft", "sqyd", "sqmi",
+      "sqrd", "sqch", "sqmil", "acre", "hectare"
+    ]
+    },
+    {
+      category: "Data", icon: null,
+      options: [
+        "Bit (bit)", "Byte (b)" , "Kilobyte (KB)", "Megabyte (MB)",
+        "Gigabyte (GB)", "Terabyte  (TB)", "Petabyte (PB)",
+        "Exabyte (EB)",
+      ],
+      units: [
+        "b", "B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB"
+      ]
+    },
+    {
+      category: "Energy", icon: null,
+      options: [
+        "Joule (J)", "BTU (BTU)", "Electronvolt (eV)", "Watt-hour (Wh)",
+        "Kilowatt-hour (kWh)", "Erg (erg)"
+      ],
+      units: ["J", "BTU", "eV", "Wh", "kWh", "erg"]
+    },
+    {
+      category: "Force", icon: null,
+      options: [
+        "Newton (N)", "Dyne (dyn)", "Poundforce (lbf)", "Kip (kip)"
+      ],
+      units: ["N", "dyn", "lbf", "kip"]
+    },
+    {
+      category: "Length", icon: null,
+      options: [
+        "Meter (m)", "Inch (in)", "Foot (ft)", "Yard (yd)", "Mile (mi)",
+        "Link (li)", "Rod (rod)", "Chain (ch)", "Angstrom (A)", "Mil (mil)"
+      ],
+      units: [
+        "m", "in", "ft", "yd", "mi", "li", "rd", "ch", "angstrom", "mil"
+      ]
+    },
+    {
+      category: "Liquid Volume", icon: null,
+      options: [
+        "Minim (min)", "Fluiddram (fldr)", "Fluidounce (floz)", "Gill (gi)",
+        "Cup (cp)", "Pint (pt)", "Quart (qt)", "Gallon (gal)",
+        "Beerbarrel (bbl)", "Oilbarrel (obl)", "Hogshead (hhd)", "Drop (gtt)"
+      ],
+      units: [
+        "min", "fldr", "floz", "gi", "cp", "pt", "qt", "gal", "bbl", "obl",
+        "hhd", "gtt"
+      ]
+    },
+    {
+      category: "Mass", icon: null,
+      options: [
+        "Gram (g)", "Tonne (tonne)", "Ton (ton)", "Grain (gr)", "Dram (dr)",
+        "Ounce (oz)", "Poundmass (lbm, lb, lbs)", "Hundredweight (cwt)",
+        "Stick (stick)", "Stone (st)"
+      ],
+      units: [
+        "g", "tonne", "toneV", "gr", "dr", "oz", "lbm", "cwt", "stick", "stone"
+      ]
+    },
+    {
+      category: "Pressure", icon: null,
+      options: [
+        "Atmosphere (standard) (atm)", "Atmosphere technical (at)", "Bar (bar)",
+        "Millibar (mbar)", "Pascal (Pa)", "Pound/sq inch (psi)",  "Torr (Torr)",
+        "Millimeter Mercury (mmHg)", "Millimeter Water (mmH₂O)",
+        "Centimeter Water (cmH₂O)"
+      ],
+      units: [
+        "atm", "at", "bar", "mbar", "Pa", "kPa", "MPa", "psi", "torr", "mmHg",
+        "mmH2O", "cmH2O"
+      ]
+    },
+    {
+      category: "Temperature", icon: null,
+      options: [
+        "Kelvin (K)", "Celsius ( °C)", "Fahrenheit ( °F)", "Rankine (°R)"
+      ],
+      units: ["K", "degC", "dergF", "degR"]
+    },
+    {
+      category: "Time", icon: null,
+      options: [
+        "Second (s)", "Minute (min)", "Hour (hr)", "Day (day)", "Week (week)",
+        "month (month)", "year (year)", "Decade (decade)", "Century (centuries)",
+        "Millennium (millennia)"
+      ],
+      units: [
+        "s", "mins", "hr", "days", "weeks", "months", "years", "decades",
+        "centuries", "millennia"
+      ]
+    },
+    {
+      category: "Volume", icon: null,
+      options: [
+        "Cubic meter (m³)", "Litre (l)", "Cubic centimeter (cc)",
+        "Cubic inch (in³)", "Cubic foot (ft³)", "Cubic yard (yd³)",
+        "Teaspoon (tsp)", "Tablespoon (Tbsp)"
+      ],
+      units: [
+        "m3", "L", "cc", "cuin ", "cuft", "cuyd", "teaspoon", "tablespoon"
+      ]
+    },
   ]
 
 
@@ -99,10 +161,26 @@ export default class App extends React.Component {
     })
   }
   setModalHidden = (cat, index) => {
+    this.info.map((category, index) => {
+      cat === category.category
+      ? this.setState({
+        modalVisible: false,
+        selectedCategory: cat,
+        options: category.options,
+        units: category.units,
+        index: index,
+      }, () => {
+        console.log(this.state.selectedCategory)
+        console.log(this.state.options)
+        console.log(this.state.units)
+      })
+      : null
+    })
+
+  }
+  closeModal =() => {
     this.setState({
-      modalVisible: false,
-      category: cat,
-      index: index,
+      modalVisible: false
     })
   }
   updateIndex = (index) => {
@@ -156,14 +234,17 @@ export default class App extends React.Component {
 
   render() {
     const { category, index, index2, selected, selected2, selectedValue,
-      modalVisible, input, output } = this.state
-    const options = this.info[8].options
+      selectedCategory, modalVisible, input, output, options } = this.state
+
     console.log('////////////////////////////////////////////*');
     const  label = ["unit", "unit"]
 
     return (
       <SafeAreaView style={styles.safeAreaView}>
           <View style={styles.container}>
+            <View style={styles.titleContainer}>
+              <Text style={{fontSize: 24}}>{selectedCategory}</Text>
+            </View>
               <View style={styles.outerWheelyContainer}>
                   <View style={styles.innerWheelyContainer}>
                     <Text style={{fontSize: 22}} style>The input is: {input}</Text>
@@ -245,14 +326,6 @@ export default class App extends React.Component {
                     <Text style={styles.text}>Menu</Text>
                   </TouchableOpacity>
                 </View>
-                <Button
-                  onPress={this.setModalVisible}
-                  title="Learn More"
-                  color="#841584"
-                  accessibilityLabel="Learn more about this purple button"
-                />
-                <Text>You're now converting {category}</Text>
-                <Text>You're now at index {index}</Text>
                 <Modal
                   style={{
                     flex: 1, justifyContent: 'space-around', alignItems: 'center',
@@ -266,7 +339,9 @@ export default class App extends React.Component {
                   }}
                 >
                   <View style={styles.modalContainer}>
-                  <Text>You're now converting {category}</Text>
+                    <View style={styles.modalTitle}>
+                      <Text style={{fontSize: 24}}>Categories</Text>
+                    </View>
                     <View style={styles.rowContainer}>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Angle", 0)}>
                         <Text>Angle</Text></TouchableOpacity>
@@ -299,7 +374,14 @@ export default class App extends React.Component {
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Volume", 11)}>
                         <Text>Volume</Text></TouchableOpacity>
                     </View>
-                  <Text>You're now at index {index}</Text>
+                    <View>
+                      <Button
+                        onPress={this.closeModal}
+                        title={"Close"}
+                        color="#841584"
+                        accessibilityLabel="Learn more about this purple button"
+                        />
+                    </View>
                   </View>
                 </Modal>
               </View>
@@ -317,12 +399,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    borderWidth: 4,
+    borderColor: gray7,
+  },
+  titleContainer: {
+    flex: 0.1,
+    alignItems: "center",
+
   },
   buttonContainer: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around"
-,    borderWidth: 4,
+    justifyContent: "space-around",
+    borderWidth: 4,
     borderColor: pink,
     backgroundColor: "darkorange",
   },
@@ -330,14 +419,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     alignItems: 'center',
-    borderWidth: 4,
-    borderColor: "green",
   },
   outerWheelyContainer: {
     flex: 1,
     flexDirection: "row",
     borderWidth: 6,
-    borderColor: "darkgreen",
+    borderColor: "pink",
   },
   modalContainer: {
     flex: 1,
@@ -358,6 +445,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+  },
+  modalTitle: {
+    flex: 0.2,
   },
   node: {
     flex: 1,
