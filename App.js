@@ -165,7 +165,7 @@ export default class App extends React.Component {
       index: 2,
       index2: 2,
       selected: 2,
-      selected2: 2
+      selected2: 2,
     })
   }
   setModalHidden = (cat) => {
