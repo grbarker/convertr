@@ -5,170 +5,181 @@ import {
   white, pink, blue, orange, purple, my_blue, my_green, my_light_green,
   my_light_blue, gray3, gray7 } from './utils/colors'
 import WheelPicker from 'react-native-wheely';
+import { evaluate, sqrt } from 'mathjs'
 
 export default class App extends React.Component {
 
   state = {
     modalVisible: false,
     selectedCategory: "Angle",
-    index: 3,
-    index2: 3,
-    selected: 3,
-    selected2: 3,
+    index: 2,
+    index2: 2,
+    selected: 2,
+    selected2: 2,
     selectedValue: null,
     input: "0",
     posInput: true,
+    response: {},
+    convertResponse: {},
     output: "0",
     options: [
-      "Radian (rad)", "Degree (deg)", "Gradian (grad)", "Cycle (cycle)",
-      "Arcsecond (arcsec)", "Arcminute (arcmin)"
+      "Radian (rad)", "Degree (deg)", "Gradian (grad)", "Arcsecond (arcsec)",
+      "Arcminute (arcmin)"
     ],
-    units: ["rad", "deg", "grad", "cycle", "arcsec", "arcmin"]
+    units: ["rad", "deg", "grad", "arcsec", "arcmin"]
 
   };
+
+
+  convert = require('convert-units')
 
   info = [
     {
       category: "Angle", icon: null,
       options: [
-        "Radian (rad)", "Degree (deg)", "Gradian (grad)", "Cycle (cycle)",
+        "Radian (rad)", "Degree (deg)", "Gradian (grad)",
         "Arcsecond (arcsec)", "Arcminute (arcmin)"
       ],
-      units: ["rad", "deg", "grad", "cycle", "arcsec", "arcmin"]
+      units: ["rad", "deg", "grad", "arcsec", "arcmin"]
     },
     {
       category: "Area", icon: null,
       options: [
-        "Square Kilometer (km²)", "Square Meter (m²)", "Square Decimeter (dm²)",
-        "Square Centimeter (cm²)", "Square Millimeter (mm2)", "Square Inch (in²)",
-        "Square Foot (ft²)", "Square Yard (yd²)", "Square Mile (mi²)",
-        "Square Rod (rod²)", "Square Chain (ch²)", "Square Mil (mil²)",
-        "Acre (ac)", "Hectare (ha)"
+        "Square Kilometer (km²)", "Square Meter (m²)", "Square Centimeter (cm²)",
+        "Square Millimeter (mm2)", "Square Inch (in²)", "Square Foot (ft²)",
+        "Square Mile (mi²)", "Acre (ac)", "Hectare (ha)"
       ],
       units: [
-        "km2", "m2", "dm2", "cm2", "mm2", "sqin", "sqft", "sqyd", "sqmi",
-      "sqrd", "sqch", "sqmil", "acre", "hectare"
+        "km2", "m2", "cm2", "mm2", "in2", "ft2",
+        "mi2", "ac", "ha"
     ]
     },
     {
       category: "Data", icon: null,
       options: [
-        "Bit (bit)", "Byte (b)" , "Kilobyte (KB)", "Megabyte (MB)",
-        "Gigabyte (GB)", "Terabyte  (TB)", "Petabyte (PB)",
-        "Exabyte (EB)",
+        "Bit (bit)", "Kilobit (Kb)", "Megabit (Mb)", "Gigabit (Gb)",
+        "Terabit  (Tb)", "Byte (byte)" , "Kilobyte (KB)", "Megabyte (MB)",
+        "Gigabyte (GB)", "Terabyte  (TB)"
       ],
       units: [
-        "b", "B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB"
+        "b",  "Kb", "Mb", "Gb", "Tb", "B", "KB", "MB", "GB", "TB",
       ]
     },
     {
       category: "Energy", icon: null,
       options: [
-        "Joule (J)", "BTU (BTU)", "Electronvolt (eV)", "Watt-hour (Wh)",
-        "Kilowatt-hour (kWh)", "Erg (erg)"
+        "Joule (J)", "Kilojoule (kJ)", "Watt-hour (Wh)", "Kilowatt-hour (kWh)",
+        "Megawatt-hour (MWh)", "Gigawatt-hour (GWh)",
       ],
-      units: ["J", "BTU", "eV", "Wh", "kWh", "erg"]
-    },
-    {
-      category: "Force", icon: null,
-      options: [
-        "Newton (N)", "Dyne (dyn)", "Poundforce (lbf)", "Kip (kip)"
-      ],
-      units: ["N", "dyn", "lbf", "kip"]
+      units: ["J", "kJ", "Wh", "kWh", "MWh", "GWh"]
     },
     {
       category: "Length", icon: null,
       options: [
-        "Meter (m)", "Inch (in)", "Foot (ft)", "Yard (yd)", "Mile (mi)",
-        "Link (li)", "Rod (rod)", "Chain (ch)", "Angstrom (A)", "Mil (mil)"
+        "Meter (m)", "Centimeter (m)", "Millimeter (m)", "Inch (in)",
+        "Foot (ft)", "Mile (mi)"
       ],
       units: [
-        "m", "in", "ft", "yd", "mi", "li", "rd", "ch", "angstrom", "mil"
-      ]
-    },
-    {
-      category: "Liquid Volume", icon: null,
-      options: [
-        "Minim (min)", "Fluiddram (fldr)", "Fluidounce (floz)", "Gill (gi)",
-        "Cup (cp)", "Pint (pt)", "Quart (qt)", "Gallon (gal)",
-        "Beerbarrel (bbl)", "Oilbarrel (obl)", "Hogshead (hhd)", "Drop (gtt)"
-      ],
-      units: [
-        "min", "fldr", "floz", "gi", "cp", "pt", "qt", "gal", "bbl", "obl",
-        "hhd", "gtt"
+        "m", "cm", "mm", "in", "ft", "mi",
       ]
     },
     {
       category: "Mass", icon: null,
       options: [
-        "Gram (g)", "Tonne (tonne)", "Ton (ton)", "Grain (gr)", "Dram (dr)",
-        "Ounce (oz)", "Poundmass (lbm, lb, lbs)", "Hundredweight (cwt)",
-        "Stick (stick)", "Stone (st)"
+        "Gram (g)", "Milligram (mg)", "Microgram (μg, mcg)", "Tonne (tonne)",
+        "Ton (ton)", "Ounce (oz)", "Pound (lb)",
       ],
       units: [
-        "g", "tonne", "toneV", "gr", "dr", "oz", "lbm", "cwt", "stick", "stone"
+        "g", "mg", "mcg", "mt", "t", "oz", "lb"
       ]
     },
     {
       category: "Pressure", icon: null,
       options: [
-        "Atmosphere (standard) (atm)", "Atmosphere technical (at)", "Bar (bar)",
-        "Millibar (mbar)", "Pascal (Pa)", "Pound/sq inch (psi)",  "Torr (Torr)",
-        "Millimeter Mercury (mmHg)", "Millimeter Water (mmH₂O)",
-        "Centimeter Water (cmH₂O)"
+        "Pascal (Pa)", "Kilopascal (kPa)", "Megapascal (MPa)", "Bar (bar)",
+        "Pound/sq inch (psi)", "Kilopound/sq inch (ksi)", "Torr (Torr)"
       ],
       units: [
-        "atm", "at", "bar", "mbar", "Pa", "kPa", "MPa", "psi", "torr", "mmHg",
-        "mmH2O", "cmH2O"
+        "Pa", "kPa", "MPa", "bar", "psi", "ksi", "torr",
       ]
+    },
+    {
+      category: "Speed", icon: null,
+      options: [
+        "Meters/second (m/s)", "Kilometer/hour (km/h)", "Meter/hour (m/h)",
+        "Knot (knot)", "Feet/second (ft/s)"
+      ],
+      units: ["m/s", "km/h", "m/h", "knot", "ft/s"]
     },
     {
       category: "Temperature", icon: null,
       options: [
         "Kelvin (K)", "Celsius ( °C)", "Fahrenheit ( °F)", "Rankine (°R)"
       ],
-      units: ["K", "degC", "dergF", "degR"]
+      units: ["K", "C", "F", "R"]
     },
     {
       category: "Time", icon: null,
       options: [
-        "Second (s)", "Minute (min)", "Hour (hr)", "Day (day)", "Week (week)",
-        "month (month)", "year (year)", "Decade (decade)", "Century (centuries)",
-        "Millennium (millennia)"
+        "Nanoecond (s)","Millisecond (s)", "Second (s)",  "Minute (min)",
+        "Hour (hr)", "Day (day)", "Week (week)", "Month (month)", "Year (year)",
       ],
       units: [
-        "s", "mins", "hr", "days", "weeks", "months", "years", "decades",
-        "centuries", "millennia"
+        "ns", "ms", "s", "min", "h", "d", "week", "month", "year"
       ]
     },
     {
       category: "Volume", icon: null,
       options: [
-        "Cubic meter (m³)", "Litre (l)", "Cubic centimeter (cc)",
+        "Cubic kilometer (km³)", "Cubic meter (m³)", "Cubic centimeter (cc, cm³)",
+        "Cubic millimeter (mm³)", "Kilolitre (kL)", "Litre (L)", "Millilitre (mL)",
         "Cubic inch (in³)", "Cubic foot (ft³)", "Cubic yard (yd³)",
+        "Gallon (gal)", "Quart (qt)", "Pint (pt)", "Cup (cp)", "Fluid Oz (fl.oz.)",
         "Teaspoon (tsp)", "Tablespoon (Tbsp)"
       ],
       units: [
-        "m3", "L", "cc", "cuin ", "cuft", "cuyd", "teaspoon", "tablespoon"
+        "km3", "m3", "cm3", "mm3", "kl", "l", "ml", "in3", "ft", "yd3", "gal",
+        "qt", "pnt", "cup", "fl-oz ", "tsp", "Tbs"
       ]
     },
-  ]
+    {
+      category: "Volumetric Flow Rate", icon: null,
+      options: [
+        "Cubic Centimeter/second (cm³/s)", "Milliliter/second (ml/s)",
+        "Liter/second (l/s)", "Liter/minute (L/min)", "Liter/hour (L/h)",
+        "Cubic Meter/Hour (m³/h)", "Gallon/Min (gal/min)",
+        "Gallon/Hour (gal/h)", "Cubic Foot/Minute (ft³/min)",
+        "Cubic Feet/Hour (ft³/h)"
+      ],
+      units: [
+        "cm3/s", "ml/s", "l/s", "l/min", "l/h", "m3/h", "gal/min", "gal/h",
+        "ft3/m", "ft3/h"
+      ]
 
+    }
+  ]
 
   setModalVisible = () => {
     this.setState({
       modalVisible: true,
+      index: 2,
+      index2: 2,
+      selected: 2,
+      selected2: 2
     })
   }
-  setModalHidden = (cat, index) => {
-    this.info.map((category, index) => {
+  setModalHidden = (cat) => {
+    this.info.map((category) => {
       cat === category.category
       ? this.setState({
         modalVisible: false,
         selectedCategory: cat,
+        index: 2,
+        index2: 2,
+        selected: 2,
+        selected2: 2,
         options: category.options,
         units: category.units,
-        index: index,
       }, () => {
         console.log(this.state.selectedCategory)
         console.log(this.state.options)
@@ -184,25 +195,33 @@ export default class App extends React.Component {
     })
   }
   updateIndex = (index) => {
+      const { input, index2, units }  = this.state
+      console.log('convert..........   ', this.convert(input).from(units[index]).to(units[index2]));
     this.setState({
-      index: index
-    }, () => {console.log('index..........   ', index);
-      console.log('this.info.units[index].unit..........   ', this.info[8].units[index].unit);
-      console.log('........................................');
+      index: index,
+      output: this.convert(input).from(units[index]).to(units[index2])
     });
   }
   updateIndex2 = (index2) => {
+    const { input, index, units }  = this.state
+    console.log('convert..........   ', this.convert(input).from(units[index]).to(units[index2]));
     this.setState({
-      index2
-    }, () => {console.log('index2..........   ', index2);
-    console.log('this.info.units[index2].unit..........   ', this.info[8].units[index2].unit);
-    console.log('........................................');
+      index2: index2,
+      output: this.convert(input).from(units[index]).to(units[index2])
     });
   }
   addNum = (num) =>{
+    const { input, index, index2, units }  = this.state
+    var input2 = input == 0 ? Number(num) : Number(input + num)
+
+    console.log('convert..........   ', input2, units[index], " to ", units[index], " = ", this.convert(input2).from(units[index]).to(units[index2]));
+    console.log('index2..........   ', index2);
+    console.log("QUERY:  ", input2 + " " + units[index] + " to " + units[index2])
     this.setState({
-      input: this.state.input + num
+      input: input2,
+      output: this.convert(input2).from(units[index]).to(units[index2])
     });
+
   }
   removeNum = () =>{
     this.setState({
@@ -228,7 +247,10 @@ export default class App extends React.Component {
     ? this.setState({input: "-" + input, posInput: false})
     : this.setState({input: input.slice(1), posInput: true});
   }
-  componentDidMount() {
+  componentDidMount(){
+    console.log("1 g to mcg =", this.convert(1).from('g').to('mcg'))
+    console.log("1 Mb to Kb =", this.convert(1).from('Mb').to('Kb'))
+    //console.log("DIGITAL UNIT OPTIONS:  ", this.convert(1).list("digital"))
   }
 
 
@@ -353,26 +375,26 @@ export default class App extends React.Component {
                     <View style={styles.rowContainer}>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Energy", 3)}>
                         <Text>Energy</Text></TouchableOpacity>
-                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Force", 4)}>
-                        <Text>Force</Text></TouchableOpacity>
-                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Length", 5)}>
+                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Length", 4)}>
                         <Text>Length</Text></TouchableOpacity>
-                    </View>
-                    <View style={styles.rowContainer}>
-                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Liquid Volume", 6)}>
-                        <Text>Liquid Volume</Text></TouchableOpacity>
-                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Mass", 7)}>
+                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Mass", 5)}>
                         <Text>Mass</Text></TouchableOpacity>
-                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Pressure", 8)}>
-                        <Text>Pressure</Text></TouchableOpacity>
                     </View>
                     <View style={styles.rowContainer}>
-                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Temperature", 9)}>
+                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Pressure", 6)}>
+                        <Text>Pressure</Text></TouchableOpacity>
+                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Speed", 7)}>
+                        <Text>Speed </Text></TouchableOpacity>
+                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Temperature", 8)}>
                         <Text>Temperature</Text></TouchableOpacity>
-                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Time", 10)}>
+                    </View>
+                    <View style={styles.rowContainer}>
+                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Time", 9)}>
                         <Text>Time</Text></TouchableOpacity>
-                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Volume", 11)}>
+                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Volume", 10)}>
                         <Text>Volume</Text></TouchableOpacity>
+                      <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Volumetric Flow Rate", 11)}>
+                        <Text>Volumetric Flow Rate</Text></TouchableOpacity>
                     </View>
                     <View>
                       <Button
