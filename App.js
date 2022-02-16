@@ -153,7 +153,7 @@ export default class App extends React.Component {
       ],
       units: [
         "cm3/s", "ml/s", "l/s", "l/min", "l/h", "m3/h", "gal/min", "gal/h",
-        "ft3/m", "ft3/h"
+        "ft3/min", "ft3/h"
       ]
 
     }
