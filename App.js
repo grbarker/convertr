@@ -15,7 +15,7 @@ export default class App extends React.Component {
     index: 2,
     index2: 2,
     selected: 2,
-    selected2: 2,
+    selected2:2,
     selectedValue: null,
     input: "0",
     posInput: true,
@@ -196,19 +196,33 @@ export default class App extends React.Component {
   }
   updateIndex = (index) => {
       const { input, index2, units }  = this.state
-      console.log('convert..........   ', this.convert(input).from(units[index]).to(units[index2]));
-    this.setState({
-      index: index,
-      output: this.convert(input).from(units[index]).to(units[index2])
-    });
+      const length = units.length
+      console.log('index2..........   ', index2);
+      console.log('units[index2]..........   ', units[index2]);
+      index >= 0 && index < length
+      ? this.setState({
+        index: index,
+        selected: index,
+        output: this.convert(input).from(units[index]).to(units[index2])
+      }, () => {
+        console.log('convert..........   ', this.convert(input).from(units[index]).to(units[index2]));
+      })
+      : null
   }
   updateIndex2 = (index2) => {
     const { input, index, units }  = this.state
-    console.log('convert..........   ', this.convert(input).from(units[index]).to(units[index2]));
-    this.setState({
+    const length = units.length
+    console.log('index2..........   ', index2);
+    console.log('units[index2]..........   ', units[index2]);
+    index2 >= 0 && index2 < length
+    ? this.setState({
       index2: index2,
+      selected2: index2,
       output: this.convert(input).from(units[index]).to(units[index2])
-    });
+    }, () => {
+      console.log('convert..........   ', this.convert(input).from(units[index]).to(units[index2]));
+    })
+    : null
   }
   addNum = (num) =>{
     const { input, index, index2, units }  = this.state
@@ -234,24 +248,6 @@ export default class App extends React.Component {
       output: 0
     });
   }
-  switchNum = () => {
-    const { input, output } = this.state
-    this.setState({
-      input: output,
-      output: input
-    });
-  }
-  negPos = () => {
-    const { input, posInput } = this.state
-    posInput
-    ? this.setState({input: "-" + input, posInput: false})
-    : this.setState({input: input.slice(1), posInput: true});
-  }
-  componentDidMount(){
-    console.log("1 g to mcg =", this.convert(1).from('g').to('mcg'))
-    console.log("1 Mb to Kb =", this.convert(1).from('Mb').to('Kb'))
-    //console.log("DIGITAL UNIT OPTIONS:  ", this.convert(1).list("digital"))
-  }
 
 
   render() {
@@ -259,7 +255,6 @@ export default class App extends React.Component {
       selectedCategory, modalVisible, input, output, options } = this.state
 
     console.log('////////////////////////////////////////////*');
-    const  label = ["unit", "unit"]
 
     return (
       <SafeAreaView style={styles.safeAreaView}>
@@ -293,58 +288,58 @@ export default class App extends React.Component {
               </View>
               <View style={styles.container}>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity onPress={ e => this.addNum("7")}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("7")}>
                     <Text style={styles.text}>7</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={ e => this.addNum("8")}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("8")}>
                     <Text style={styles.text}>8</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={ e => this.addNum("9")}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("9")}>
                     <Text style={styles.text}>9</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={ e => this.removeNum()}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.removeNum()}>
                     <Text style={styles.text}>Back</Text>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity onPress={ e => this.addNum("4")}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("4")}>
                     <Text style={styles.text}>4</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={ e => this.addNum("5")}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("5")}>
                     <Text style={styles.text}>5</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={ e => this.addNum("6")}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("6")}>
                     <Text style={styles.text}>6</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={ e => this.clearNum()}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.clearNum()}>
                     <Text style={styles.text}>Clear</Text>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity onPress={ e => this.addNum("1")}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("1")}>
                     <Text style={styles.text}>1</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={ e => this.addNum("2")}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("2")}>
                     <Text style={styles.text}>2</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={ e => this.addNum("3")}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("3")}>
                     <Text style={styles.text}>3</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={ e => this.switchNum("switch")}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.switchNum("switch")}>
                     <Text style={styles.text}>Switch</Text>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity onPress={ e => this.addNum("0")}>
+                  <View style={styles.button}>
+                    <Text style={styles.text}></Text>
+                  </View>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("0")}>
                     <Text style={styles.text}>0</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={ e => this.addNum(".")}>
+                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum(".")}>
                     <Text style={styles.text}>.</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={ e => this.negPos()}>
-                    <Text style={styles.text}>+/-</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={this.setModalVisible}>
+                  <TouchableOpacity style={styles.button} onPress={this.setModalVisible}>
                     <Text style={styles.text}>Menu</Text>
                   </TouchableOpacity>
                 </View>
@@ -433,8 +428,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
-    borderWidth: 4,
-    borderColor: pink,
+    alignItems: "center",
     backgroundColor: "darkorange",
   },
   innerWheelyContainer: {
@@ -446,7 +440,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     borderWidth: 6,
-    borderColor: "pink",
+    borderColor: pink,
   },
   modalContainer: {
     flex: 1,
@@ -467,6 +461,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+  },
+  button: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: my_light_green,
+    padding: 8,
+    margin: 10,
+    borderWidth: 3,
+    borderColor: purple,
+    borderRadius: 30
   },
   modalTitle: {
     flex: 0.2,
