@@ -262,9 +262,12 @@ export default class App extends React.Component {
 
     return (
       <SafeAreaView style={styles.safeAreaView}>
+        <StatusBar
+          backgroundColor="blue"
+          barStyle="white"/>
           <View style={styles.container}>
             <View style={styles.titleContainer}>
-              <Text style={{fontSize: 24}}>{selectedCategory}</Text>
+              <Text style={styles.category}>{selectedCategory}</Text>
             </View>
               <View style={styles.outerWheelyContainer}>
                   <View style={styles.innerWheelyContainer}>
@@ -348,10 +351,6 @@ export default class App extends React.Component {
                   </TouchableOpacity>
                 </View>
                 <Modal
-                  style={{
-                    flex: 1, justifyContent: 'space-around', alignItems: 'center',
-                    backgroundColor: white, marginTop: 70,
-                  }}
                   animationType="slide"
                   transparent={false}
                   visible={modalVisible}
@@ -359,6 +358,10 @@ export default class App extends React.Component {
                     alert('Modal has been closed.');
                   }}
                 >
+                  <StatusBar
+                    hidden="true"
+                    backgroundColor="blue"
+                    barStyle="#fff"/>
                   <View style={styles.modalContainer}>
                     <View style={styles.modalTitle}>
                       <Text style={{fontSize: 24}}>Categories</Text>
@@ -407,7 +410,6 @@ export default class App extends React.Component {
                 </Modal>
               </View>
           </View>
-        <StatusBar style="auto" />
       </SafeAreaView>
     );
   }
@@ -416,65 +418,73 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
+    backgroundColor: "blue",
+  },
+  statusBar: {
+    backgroundColor: "blue",
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    borderWidth: 4,
-    borderColor: gray7,
+    backgroundColor: "white",
   },
   titleContainer: {
     flex: 0.1,
     alignItems: "center",
+    backgroundColor: "blue",
 
+  },
+  innerWheelyContainer: {
+    flex: 1,
+    justifyContent: "space-around",
+    alignItems: 'center',
+    backgroundColor: "white",
+  },
+  outerWheelyContainer: {
+    flex: 1,
+    flexDirection: "row",
   },
   buttonContainer: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "darkorange",
-  },
-  innerWheelyContainer: {
-    flex: 1,
-    justifyContent: "space-around",
-    alignItems: 'center',
-  },
-  outerWheelyContainer: {
-    flex: 1,
-    flexDirection: "row",
-    borderWidth: 6,
-    borderColor: pink,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 52,
-    borderWidth: 2,
-    borderColor: my_light_green,
-    borderRadius: 12,
-  },
-  CategoryButton: {
-    flex: 1,
-    fontSize: 18,
-    backgroundColor: my_light_green,
-    padding: 20,
-  },
-  rowContainer: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
   },
   button: {
     flex: 1,
     alignItems: "center",
     backgroundColor: my_light_green,
-    padding: 8,
-    margin: 10,
-    borderWidth: 3,
+    paddingTop: 24,
+    paddingBottom: 24,
+    paddingLeft: 12,
+    paddingRight: 12,
+    borderWidth: 2,
     borderColor: purple,
-    borderRadius: 30
+    borderRadius: 8,
+    backgroundColor: "blue",
+  },
+  modalContainer: {
+    flex: 1,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: my_light_green,
+    borderRadius: 12,
+  },
+  rowContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "pink",
+  },
+  CategoryButton: {
+    flex: 1,
+    alignItems: "center",
+    fontSize: 18,
+    backgroundColor: "yellow",
+    paddingTop: 24,
+    paddingBottom: 24,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   modalTitle: {
     flex: 0.2,
@@ -493,6 +503,10 @@ const styles = StyleSheet.create({
   },
   text: {
      fontSize: 20,
-     color: '#42260A'
+     color: '#fff'
+  },
+  category: {
+    fontSize: 24,
+    color: "white"
   }
 });
