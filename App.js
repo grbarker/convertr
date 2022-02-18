@@ -241,11 +241,10 @@ export default class App extends React.Component {
   }
   removeNum = () =>{
     const { input, index, index2, units }  = this.state
-    const holder = input.slice(0, -1)
-    const inputt = Number(holder)
+    const holder = input.length == 1 ? "0" : input.slice(0, -1)
     this.setState({
       input: holder,
-      output: this.convert(inputt).from(units[index]).to(units[index2])
+      output: this.convert(Number(holder)).from(units[index]).to(units[index2])
     });
 
   }
