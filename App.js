@@ -409,7 +409,7 @@ export default class App extends React.Component {
                         <Text style={styles.buttonText}>Volumetric Flow Rate</Text></TouchableOpacity>
                     </View>
                     <View>
-                      <TouchableOpacity onPress={() => this.closeModal}>
+                      <TouchableOpacity onPress={this.closeModal}>
                         <Ionicons name="ios-close-circle-outline" size={40} color="white" />
                       </TouchableOpacity>
                     </View>
