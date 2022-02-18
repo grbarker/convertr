@@ -374,7 +374,7 @@ export default class App extends React.Component {
                         <MaterialCommunityIcons name="angle-acute" size={30} color="blue" />
                         <Text style={styles.buttonText}>Angle</Text></TouchableOpacity>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Area", 1)}>
-                        <MaterialCommunityIcons name="database" size={30} color="blue" />
+                        <MaterialCommunityIcons name="rectangle-outline" size={30} color="blue" />
                         <Text style={styles.buttonText}>Area</Text></TouchableOpacity>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Data", 2)}>
                         <MaterialCommunityIcons name="database" size={30} color="blue" />
