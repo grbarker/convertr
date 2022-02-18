@@ -362,60 +362,56 @@ export default class App extends React.Component {
                 >
                   <View style={styles.modalContainer}>
                     <View style={styles.modalTitle}>
-                      <Text style={{fontSize: 24}}>Categories</Text>
+                      <Text style={{fontSize: 24, color: "white"}}>Categories</Text>
                     </View>
                     <View style={styles.rowContainer}>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Angle", 0)}>
-                        <Ionicons name="ios-close-circle-outline" size={20} color="#fff" />
-                        <MaterialCommunityIcons name="angle-acute" size={20} color="#fff" />
-                        <Text style={styles.text}>Angle</Text></TouchableOpacity>
+                        <MaterialCommunityIcons name="angle-acute" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Angle</Text></TouchableOpacity>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Area", 1)}>
-                        <MaterialCommunityIcons name="database" size={20} color="#fff" />
-                        <Text style={styles.text}>Area</Text></TouchableOpacity>
+                        <MaterialCommunityIcons name="database" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Area</Text></TouchableOpacity>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Data", 2)}>
-                        <MaterialCommunityIcons name="database" size={20} color="#fff" />
-                        <Text style={styles.text}>Data</Text></TouchableOpacity>
+                        <MaterialCommunityIcons name="database" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Data</Text></TouchableOpacity>
                     </View>
                     <View style={styles.rowContainer}>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Energy", 3)}>
-                        <SimpleLineIcons name="energy" size={20} color="#fff" />
-                        <Text style={styles.text}>Energy</Text></TouchableOpacity>
+                        <SimpleLineIcons name="energy" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Energy</Text></TouchableOpacity>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Length", 4)}>
-                        <MaterialCommunityIcons name="ruler" size={20} color="#fff" />
-                        <Text style={styles.text}>Length</Text></TouchableOpacity>
+                        <MaterialCommunityIcons name="ruler" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Length</Text></TouchableOpacity>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Mass", 5)}>
-                        <MaterialCommunityIcons name="scale-balance" size={20} color="#fff" />
-                        <Text style={styles.text}>Mass</Text></TouchableOpacity>
+                        <MaterialCommunityIcons name="scale-balance" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Mass</Text></TouchableOpacity>
                     </View>
                     <View style={styles.rowContainer}>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Pressure", 6)}>
-                        <MaterialCommunityIcons name="pump" size={20} color="#fff" />
-                        <Text style={styles.text}>Pressure</Text></TouchableOpacity>
+                        <MaterialCommunityIcons name="pump" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Pressure</Text></TouchableOpacity>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Speed", 7)}>
-                        <SimpleLineIcons name="speedometer" size={20} color="#fff" />
-                        <Text style={styles.text}>Speed </Text></TouchableOpacity>
+                        <SimpleLineIcons name="speedometer" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Speed </Text></TouchableOpacity>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Temperature", 8)}>
-                        <MaterialCommunityIcons name="thermometer-lines" size={20} color="#fff" />
-                        <Text style={styles.text}>Temperature</Text></TouchableOpacity>
+                        <MaterialCommunityIcons name="thermometer-lines" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Temperature</Text></TouchableOpacity>
                     </View>
                     <View style={styles.rowContainer}>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Time", 9)}>
-                        <MaterialCommunityIcons name="clock-time-four-outline" size={20} color="#fff" />
-                        <Text style={styles.text}>Time</Text></TouchableOpacity>
+                        <MaterialCommunityIcons name="clock-time-four-outline" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Time</Text></TouchableOpacity>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Volume", 10)}>
-                        <MaterialCommunityIcons name="beaker-outline" size={20} color="#fff" />
-                        <Text style={styles.text}>Volume</Text></TouchableOpacity>
+                        <MaterialCommunityIcons name="beaker-outline" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Volume</Text></TouchableOpacity>
                       <TouchableOpacity style={styles.CategoryButton} onPress={() => this.setModalHidden("Volumetric Flow Rate", 11)}>
-                        <MaterialCommunityIcons name="water-pump" size={20} color="#fff" />
-                        <Text style={styles.text}>Volumetric Flow Rate</Text></TouchableOpacity>
+                        <MaterialCommunityIcons name="water-pump" size={30} color="blue" />
+                        <Text style={styles.buttonText}>Volumetric Flow Rate</Text></TouchableOpacity>
                     </View>
                     <View>
-                      <Button
-                        onPress={this.closeModal}
-                        title={"Close"}
-                        color="#841584"
-                        accessibilityLabel="Learn more about this purple button"
-                        />
+                      <TouchableOpacity onPress={() => this.closeModal}>
+                        <Ionicons name="ios-close-circle-outline" size={40} color="white" />
+                      </TouchableOpacity>
                     </View>
                   </View>
                 </Modal>
@@ -477,7 +473,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     flex: 1,
     alignItems: 'center',
-    backgroundColor: "#fff",
+    backgroundColor: "blue",
     borderColor: my_light_green,
     borderRadius: 12,
     shadowColor: "#000",
@@ -493,24 +489,26 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    height: 48,
-    borderWidth: 2,
-    borderColor: pink,
   },
   CategoryButton: {
     flex: 1,
     alignItems: "center",
-    fontSize: 18,
-    backgroundColor: "blue",
+    height: 92,
+    fontSize: 16,
+    backgroundColor: "white",
     borderWidth: 2,
     borderColor: "darkorange",
-    paddingTop: 24,
+    borderRadius: 12,
+    paddingTop: 14,
     paddingBottom: 10,
-    paddingLeft: 18,
-    paddingRight: 18,
+    paddingLeft: 8,
+    paddingRight: 8,
+    marginLeft: 8,
+    marginRight: 8,
   },
   modalTitle: {
-    flex: 0.2,
+    flex: 0.25,
+    color: "white"
   },
   node: {
     flex: 1,
@@ -528,8 +526,12 @@ const styles = StyleSheet.create({
      fontSize: 16,
      color: '#fff'
   },
+  buttonText: {
+    paddingTop: 8,
+     fontSize: 14,
+     color: 'blue'
+  },
   category: {
-    fontSize: 24,
     color: "white"
   }
 });
