@@ -251,7 +251,7 @@ export default class App extends React.Component {
   }
   clearNum = () =>{
     this.setState({
-      input: 0,
+      input: "0",
       output: 0
     });
   }
