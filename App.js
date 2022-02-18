@@ -297,13 +297,13 @@ export default class App extends React.Component {
               </View>
               <View style={styles.container}>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("7")}>
+                  <TouchableOpacity style={styles.numButton} onPress={ e => this.addNum("7")}>
                     <Text style={styles.text}>7</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("8")}>
+                  <TouchableOpacity style={styles.numButton} onPress={ e => this.addNum("8")}>
                     <Text style={styles.text}>8</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("9")}>
+                  <TouchableOpacity style={styles.numButton} onPress={ e => this.addNum("9")}>
                     <Text style={styles.text}>9</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.button} onPress={ e => this.removeNum()}>
@@ -311,13 +311,13 @@ export default class App extends React.Component {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("4")}>
+                  <TouchableOpacity style={styles.numButton} onPress={ e => this.addNum("4")}>
                     <Text style={styles.text}>4</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("5")}>
+                  <TouchableOpacity style={styles.numButton} onPress={ e => this.addNum("5")}>
                     <Text style={styles.text}>5</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("6")}>
+                  <TouchableOpacity style={styles.numButton} onPress={ e => this.addNum("6")}>
                     <Text style={styles.text}>6</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.button} onPress={ e => this.clearNum()}>
@@ -325,32 +325,32 @@ export default class App extends React.Component {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("1")}>
+                  <TouchableOpacity style={styles.numButton} onPress={ e => this.addNum("1")}>
                     <Text style={styles.text}>1</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("2")}>
+                  <TouchableOpacity style={styles.numButton} onPress={ e => this.addNum("2")}>
                     <Text style={styles.text}>2</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("3")}>
+                  <TouchableOpacity style={styles.numButton} onPress={ e => this.addNum("3")}>
                     <Text style={styles.text}>3</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.switchNum("switch")}>
-                    <Text style={styles.text}>Switch</Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.buttonContainer}>
-                  <View style={styles.button}>
-                    <Text style={styles.text}></Text>
-                  </View>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum("0")}>
-                    <Text style={styles.text}>0</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} onPress={ e => this.addNum(".")}>
-                    <Text style={styles.text}>.</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.button} onPress={this.setModalVisible}>
                     <Text style={styles.text}>Menu</Text>
                   </TouchableOpacity>
+                </View>
+                <View style={styles.buttonContainer}>
+                  <View style={styles.numButton}>
+                    <Text style={styles.text}>__</Text>
+                  </View>
+                  <TouchableOpacity style={styles.numButton} onPress={ e => this.addNum("0")}>
+                    <Text style={styles.text}>0</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.numButton} onPress={ e => this.addNum(".")}>
+                    <Text style={styles.text}>.</Text>
+                  </TouchableOpacity>
+                    <View style={styles.numButton}>
+                      <Text style={styles.text}>__</Text>
+                    </View>
                 </View>
                 <Modal
                   animationType="slide"
@@ -459,7 +459,18 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: my_light_green,
+    paddingTop: 24,
+    paddingBottom: 24,
+    paddingLeft: 12,
+    paddingRight: 12,
+    borderWidth: 2,
+    borderColor: purple,
+    borderRadius: 8,
+    backgroundColor: "blue",
+  },
+  numButton: {
+    flex: 1,
+    alignItems: "center",
     paddingTop: 24,
     paddingBottom: 24,
     paddingLeft: 12,
@@ -523,7 +534,7 @@ const styles = StyleSheet.create({
     backgroundColor: my_light_green,
   },
   text: {
-     fontSize: 16,
+     fontSize: 24,
      color: '#fff'
   },
   buttonText: {
