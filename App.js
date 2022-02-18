@@ -214,10 +214,10 @@ export default class App extends React.Component {
     let valueStr = String(value)
     console.log("CONVERSION VALUE: _____________________", value)
     console.log("CONVERSION VALUE STRING: _____________________", valueStr)
-    console.log("CONVERSION DECIMAL STRING LENGTH: _____________________", valueStr.split(".")[1].length)
-    console.log("CONVERSION TO FIXED: _____________________", value.toFixed(5))
     if (valueStr.includes(".")) {
+      console.log("CONVERSION DECIMAL STRING LENGTH: _____________________", valueStr.split(".")[1].length)
       if (valueStr.split(".")[1].length > 5) {
+        console.log("CONVERSION TO FIXED: _____________________", value.toFixed(5))
         output = value.toFixed(5)
         console.log("SETTING OUTPUT: _____________________", value.toFixed(5))
       } else {
