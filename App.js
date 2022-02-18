@@ -210,11 +210,29 @@ export default class App extends React.Component {
   updateIndex2 = (index2) => {
     const { input, index, units }  = this.state
     const length = units.length
+    let value = this.convert(input).from(units[index]).to(units[index2])
+    let valueStr = String(value)
+    console.log("CONVERSION VALUE: _____________________", value)
+    console.log("CONVERSION VALUE STRING: _____________________", valueStr)
+    console.log("CONVERSION DECIMAL STRING LENGTH: _____________________", valueStr.split(".")[1].length)
+    console.log("CONVERSION TO FIXED: _____________________", value.toFixed(5))
+    if (valueStr.includes(".")) {
+      if (valueStr.split(".")[1].length > 5) {
+        output = value.toFixed(5)
+        console.log("SETTING OUTPUT: _____________________", value.toFixed(5))
+      } else {
+        output = value
+        console.log("REGULAR OUTPUT: _____________________", value)
+      }
+    } else {
+      output = value
+      console.log("REGULAR OUTPUT: _____________________", value)
+    }
     index2 >= 0 && index2 < length
     ? this.setState({
       index2: index2,
       selected2: index2,
-      output: this.convert(input).from(units[index]).to(units[index2])
+      output: output
     })
     : null
   }
