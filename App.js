@@ -199,40 +199,28 @@ export default class App extends React.Component {
   updateIndex = (index) => {
       const { input, index2, units }  = this.state
       const length = units.length
-      console.log('index2..........   ', index2);
-      console.log('units[index2]..........   ', units[index2]);
       index >= 0 && index < length
       ? this.setState({
         index: index,
         selected: index,
         output: this.convert(input).from(units[index]).to(units[index2])
-      }, () => {
-        console.log('convert..........   ', this.convert(input).from(units[index]).to(units[index2]));
       })
       : null
   }
   updateIndex2 = (index2) => {
     const { input, index, units }  = this.state
     const length = units.length
-    console.log('index2..........   ', index2);
-    console.log('units[index2]..........   ', units[index2]);
     index2 >= 0 && index2 < length
     ? this.setState({
       index2: index2,
       selected2: index2,
       output: this.convert(input).from(units[index]).to(units[index2])
-    }, () => {
-      console.log('convert..........   ', this.convert(input).from(units[index]).to(units[index2]));
     })
     : null
   }
   addNum = (num) =>{
     const { input, index, index2, units }  = this.state
     var input2 = input == 0 ? num : input + num
-
-    console.log('convert..........   ', input2, units[index], " to ", units[index], " = ", this.convert(input2).from(units[index]).to(units[index2]));
-    console.log('index2..........   ', index2);
-    console.log("QUERY:  ", input2 + " " + units[index] + " to " + units[index2])
     this.setState({
       input: input2,
       output: this.convert(Number(input2)).from(units[index]).to(units[index2])
@@ -260,7 +248,7 @@ export default class App extends React.Component {
     const { category, index, index2, selected, selected2, selectedValue,
       selectedCategory, modalVisible, input, output, options } = this.state
 
-    console.log('////////////////////////////////////////////*');
+    console.log('////////////////////////////////////////////');
 
     return (
       <SafeAreaView style={styles.safeAreaView}>
