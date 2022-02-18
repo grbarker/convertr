@@ -247,6 +247,7 @@ export default class App extends React.Component {
       input: holder,
       output: this.convert(inputt).from(units[index]).to(units[index2])
     });
+
   }
   clearNum = () =>{
     this.setState({
@@ -273,7 +274,9 @@ export default class App extends React.Component {
             </View>
               <View style={styles.outerWheelyContainer}>
                   <View style={styles.innerWheelyContainer}>
-                    <Text style={{fontSize: 22}} style>The input is: {input}</Text>
+                    <View style={styles.inputOutput}>
+                      <Text style={{fontSize: 22}}>{input}</Text>
+                    </View>
                     <WheelPicker
                       selectedIndex={selected}
                       options={options}
@@ -284,7 +287,9 @@ export default class App extends React.Component {
                     />
                   </View>
                   <View style={styles.innerWheelyContainer}>
-                    <Text style={{fontSize: 22}} style>The output is: {output}</Text>
+                    <View style={styles.inputOutput}>
+                      <Text style={{fontSize: 22}}>{output}</Text>
+                    </View>
                     <WheelPicker
                       selectedIndex={selected2}
                       options={options}
@@ -450,6 +455,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
+  inputOutput: {
+    borderWidth: 2,
+    borderColor: gray7,
+    borderRadius: 2,
+    width: "100%",
+    alignItems: "center"
+  },
   buttonContainer: {
     flex: 1,
     flexDirection: "row",
@@ -507,8 +519,6 @@ const styles = StyleSheet.create({
     height: 92,
     fontSize: 16,
     backgroundColor: "white",
-    borderWidth: 2,
-    borderColor: "darkorange",
     borderRadius: 12,
     paddingTop: 14,
     paddingBottom: 10,
