@@ -243,18 +243,40 @@ export default class App extends React.Component {
   addNum = (num) =>{
     const { input, index, index2, units }  = this.state
     var input2 = input == 0 ? num : input + num
+    let value = this.convert(input2).from(units[index]).to(units[index2])
+    let valueStr = String(value)
+    if (valueStr.includes(".")) {
+      if (valueStr.split(".")[1].length > 5) {
+        output = value.toFixed(5)
+      } else {
+        output = value
+      }
+    } else {
+      output = value
+    }
     this.setState({
       input: input2,
-      output: this.convert(Number(input2)).from(units[index]).to(units[index2])
+      output: output
     });
 
   }
   removeNum = () =>{
     const { input, index, index2, units }  = this.state
     const holder = input.length == 1 ? "0" : input.slice(0, -1)
+    let value = this.convert(holder).from(units[index]).to(units[index2])
+    let valueStr = String(value)
+    if (valueStr.includes(".")) {
+      if (valueStr.split(".")[1].length > 5) {
+        output = value.toFixed(5)
+      } else {
+        output = value
+      }
+    } else {
+      output = value
+    }
     this.setState({
       input: holder,
-      output: this.convert(Number(holder)).from(units[index]).to(units[index2])
+      output: output
     });
 
   }
