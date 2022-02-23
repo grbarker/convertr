@@ -141,7 +141,7 @@ export default class App extends React.Component {
       ],
       units: [
         "km3", "m3", "cm3", "mm3", "kl", "l", "ml", "in3", "ft3", "yd3", "gal",
-        "qt", "pnt", "cup", "fl-oz ", "tsp", "Tbs"
+        "qt", "pnt", "cup", "fl-oz", "tsp", "Tbs"
       ]
     },
     {
