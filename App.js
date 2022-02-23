@@ -140,7 +140,7 @@ export default class App extends React.Component {
         "Teaspoon (tsp)", "Tablespoon (Tbsp)"
       ],
       units: [
-        "km3", "m3", "cm3", "mm3", "kl", "l", "ml", "in3", "ft", "yd3", "gal",
+        "km3", "m3", "cm3", "mm3", "kl", "l", "ml", "in3", "ft3", "yd3", "gal",
         "qt", "pnt", "cup", "fl-oz ", "tsp", "Tbs"
       ]
     },
