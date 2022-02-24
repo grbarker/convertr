@@ -202,7 +202,10 @@ export default class App extends React.Component {
       let value = this.convert(input).from(units[index]).to(units[index2])
       let valueStr = String(value)
       if (valueStr.includes(".")) {
-        if (valueStr.split(".")[1].length > 5) {
+        let decimals = valueStr.split(".")[1]
+        if (decimals.includes("00")) {
+          output = value.toFixed(decimals.indexOf("00"))
+        } else if (decimals.length > 5) {
           output = value.toFixed(5)
         } else {
           output = value
@@ -224,7 +227,10 @@ export default class App extends React.Component {
     let value = this.convert(input).from(units[index]).to(units[index2])
     let valueStr = String(value)
     if (valueStr.includes(".")) {
-      if (valueStr.split(".")[1].length > 5) {
+      let decimals = valueStr.split(".")[1]
+      if (decimals.includes("00")) {
+        output = value.toFixed(decimals.indexOf("00"))
+      } else if (decimals.length > 5) {
         output = value.toFixed(5)
       } else {
         output = value
@@ -246,7 +252,10 @@ export default class App extends React.Component {
     let value = this.convert(input2).from(units[index]).to(units[index2])
     let valueStr = String(value)
     if (valueStr.includes(".")) {
-      if (valueStr.split(".")[1].length > 5) {
+      let decimals = valueStr.split(".")[1]
+      if (decimals.includes("00")) {
+        output = value.toFixed(decimals.indexOf("00"))
+      } else if (decimals.length > 5) {
         output = value.toFixed(5)
       } else {
         output = value
@@ -266,7 +275,10 @@ export default class App extends React.Component {
     let value = this.convert(holder).from(units[index]).to(units[index2])
     let valueStr = String(value)
     if (valueStr.includes(".")) {
-      if (valueStr.split(".")[1].length > 5) {
+      let decimals = valueStr.split(".")[1]
+      if (decimals.includes("00")) {
+        output = value.toFixed(decimals.indexOf("00"))
+      } else if (decimals.length > 5) {
         output = value.toFixed(5)
       } else {
         output = value
