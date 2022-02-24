@@ -325,8 +325,13 @@ export default class App extends React.Component {
                       options={options}
                       onChange={(index) => this.updateIndex(index)}
                       containerStyle={{
-                        width: "90%",
+                        width: "100%",
+                        flex: 9,
+                        borderWidth: 2,
+                        borderColor: "purple",
+                        borderRadius: 2,
                       }}
+                      itemHeight={60}
                     />
                   </View>
                   <View style={styles.innerWheelyContainer}>
@@ -338,8 +343,14 @@ export default class App extends React.Component {
                       options={options}
                       onChange={(index2) => this.updateIndex2(index2)}
                       containerStyle={{
-                        width: "90%",
+                        width: "100%",
+                        flex: 9,
+                        justifyContent: "center",
+                        borderWidth: 2,
+                        borderColor: "purple",
+                        borderRadius: 2,
                       }}
+                      itemHeight={60}
                     />
                   </View>
               </View>
@@ -490,7 +501,7 @@ const styles = StyleSheet.create({
   },
   innerWheelyContainer: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
     alignItems: 'center',
     backgroundColor: "white",
   },
@@ -499,6 +510,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   inputOutput: {
+    flex: 1,
     borderWidth: 2,
     borderColor: gray7,
     borderRadius: 2,
