@@ -78,8 +78,8 @@ export default class App extends React.Component {
     {
       category: "Length", icon: null,
       options: [
-        "Meter (m)", "Centimeter (m)", "Millimeter (m)", "Inch (in)",
-        "Foot (ft)", "Mile (mi)"
+        "Meter (m)", "Centimeter (cm)", "Millimeter (mm)", "Inch (in)",
+        "Feet (ft)", "Mile (mi)"
       ],
       units: [
         "m", "cm", "mm", "in", "ft", "mi",
