@@ -196,23 +196,41 @@ export default class App extends React.Component {
       modalVisible: false
     })
   }
-  updateIndex = (index) => {
-      const { input, index2, units }  = this.state
-      const length = units.length
-      let value = this.convert(input).from(units[index]).to(units[index2])
-      let valueStr = String(value)
-      if (valueStr.includes(".")) {
-        let decimals = valueStr.split(".")[1]
-        if (decimals.includes("00")) {
-          output = value.toFixed(decimals.indexOf("00"))
-        } else if (decimals.length > 5) {
-          output = value.toFixed(5)
-        } else {
-          output = value
-        }
+  wheelyConversion = (indexx, wheely) => {
+    const { input, index, index2, units }  = this.state
+    const length = units.length
+    if (wheely = 2) {
+      var indexOne = index
+      var indexTwo = indexx
+    } else {
+      var indexOne = indexx
+      var indexTwo = index2
+    }
+    console.log("MADE IT PAST THE WHICH WHEELY LOGIC")
+    let value = this.convert(input).from(units[indexOne]).to(units[indexTwo])
+    let valueStr = String(value)
+    if (valueStr.includes(".")) {
+      let decimals = valueStr.split(".")[1]
+      if (decimals.includes("00")) {
+        output = value.toFixed(decimals.indexOf("00"))
+      } else if (decimals.length > 5) {
+        output = value.toFixed(5)
       } else {
         output = value
       }
+    } else {
+      output = value
+    }
+    console.log("MADE IT PAST THE DECIMAL  LOGIC")
+    if (wheely = 2) {
+      index2 >= 0 && index2 < length
+      ? this.setState({
+        index2: index2,
+        selected2: index2,
+        output: output
+      })
+      : null
+    } else {
       index >= 0 && index < length
       ? this.setState({
         index: index,
@@ -220,58 +238,22 @@ export default class App extends React.Component {
         output: output
       })
       : null
-  }
-  updateIndex2 = (index2) => {
-    const { input, index, units }  = this.state
-    const length = units.length
-    let value = this.convert(input).from(units[index]).to(units[index2])
-    let valueStr = String(value)
-    if (valueStr.includes(".")) {
-      let decimals = valueStr.split(".")[1]
-      if (decimals.includes("00")) {
-        output = value.toFixed(decimals.indexOf("00"))
-      } else if (decimals.length > 5) {
-        output = value.toFixed(5)
-      } else {
-        output = value
-      }
-    } else {
-      output = value
     }
-    index2 >= 0 && index2 < length
-    ? this.setState({
-      index2: index2,
-      selected2: index2,
-      output: output
-    })
-    : null
-  }
-  addNum = (num) =>{
-    const { input, index, index2, units }  = this.state
-    var input2 = input == 0 ? num : input + num
-    let value = this.convert(input2).from(units[index]).to(units[index2])
-    let valueStr = String(value)
-    if (valueStr.includes(".")) {
-      let decimals = valueStr.split(".")[1]
-      if (decimals.includes("00")) {
-        output = value.toFixed(decimals.indexOf("00"))
-      } else if (decimals.length > 5) {
-        output = value.toFixed(5)
-      } else {
-        output = value
-      }
-    } else {
-      output = value
-    }
-    this.setState({
-      input: input2,
-      output: output
-    });
 
   }
-  removeNum = () =>{
+  updateIndex = (index) => {
+    this.wheelyConversion(index, 1)
+  }
+  updateIndex2 = (index2) => {
+    this.wheelyConversion(index2, 2)
+  }
+  buttonConversion = (num) => {
     const { input, index, index2, units }  = this.state
-    const holder = input.length == 1 ? "0" : input.slice(0, -1)
+    if (num) {
+      var holder = input == 0 ? num : input + num
+    } else {
+      var holder = input.length == 1 ? "0" : input.slice(0, -1)
+    }
     let value = this.convert(holder).from(units[index]).to(units[index2])
     let valueStr = String(value)
     if (valueStr.includes(".")) {
@@ -290,7 +272,13 @@ export default class App extends React.Component {
       input: holder,
       output: output
     });
+  }
+  addNum = (num) => {
+    this.buttonConversion(num)
 
+  }
+  removeNum = () => {
+    this.buttonConversion()
   }
   clearNum = () =>{
     this.setState({
